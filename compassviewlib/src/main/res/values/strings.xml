@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CompassViewLib</string>
+    <string name="tag_dist_instructions">How far are you from the coordinate tag right now?</string>
+    <string name="tag_bearing_instructions">What\'s your bearing to the coordinate tag?\n
+        \n1. Hold your device screen up and parallel to the ground
+        \n2. Turn and face north
+        \n3. Rotate the compass needle so it points to the coordinate tag
+        \n4. Tap the OK button
+    </string>
+    <string name="tag_dist_val">%1$.2f feet / %2$.2f meters</string>
+</resources>

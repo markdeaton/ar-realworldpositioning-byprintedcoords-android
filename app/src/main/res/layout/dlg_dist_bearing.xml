@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:compassviewlib="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTagDistInstructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tag_dist_instructions" />
+
+        <TextView
+            android:id="@+id/txtDistToTag"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_blue_bright"/>
+
+        <SeekBar
+            android:id="@+id/trkDistToTag"
+            android:layout_marginTop="8dp"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:max="39"
+            />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp">
+
+        <TextView
+            android:id="@+id/txtTagBearingInstructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="10"
+            android:text="@string/tag_bearing_instructions"
+            app:layout_constraintBottom_toTopOf="@+id/compass"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.gospelware.compassviewlib.CompassView
+            android:id="@+id/compass"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTagBearingInstructions"
+            app:pointerDrawable="@drawable/pointer"
+            app:ringColor="@android:color/holo_orange_light"
+            compassviewlib:compassSnapInterval="10"
+            compassviewlib:pointerRotation="0"
+            app:alwaysShowNorth="true"
+            compassviewlib:showRing="true" />
+
+        <TextView
+            android:id="@+id/txtRotation"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:textColor="@android:color/holo_blue_bright"
+            app:layout_constraintBottom_toBottomOf="@id/compass"
+            app:layout_constraintEnd_toEndOf="@id/compass"
+            app:layout_constraintStart_toStartOf="@id/compass"
+            app:layout_constraintTop_toTopOf="@id/compass" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+</ScrollView>

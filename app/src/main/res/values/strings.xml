@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AR OCR Location</string>
+
+    <string name="camera_permission_rationale">This app needs the camera in order to
+        find text location descriptions.</string>
+    <string name="camera_no_good">No back-facing capable camera is available.</string>
+    <string name="camera_disabled">Camera is disabled by device policy.</string>
+    <string name="camera_disconnected">Camera was disconnected before it was opened.</string>
+    <string name="camera_error">Camera service reported an error.</string>
+    <string name="camera_unknown">Unknown camera error: %s.</string>
+    <string name="camera_permission_denied_explanation">You\'ve denied a permission that the app
+        needs for core functionality. If you selected &quot;don\'t ask again&quot; in the past then
+        you need to use Settings to re-enable the permission.</string>
+
+    <string name="settings">Settings</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+
+    <string name="callout">Found text: "%1$s"\nLocation name: "%2$s"\nGeocode score: %3$.0f</string>
+
+    <string name="color_found_location">#55000000</string>
+    <string name="url_geocoder">https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer</string>
+
+    <string name="rotation_degrees">%1$d°</string>
+
+    <string name="title_activity_position">PositionActivity</string>
+
+    <string name="location_text">x:%1$.2f; y:%2$.2f; z:%3$.2f\nhead: %4$.1f</string>
+
+    <string name="extraname_x">extra_x</string>
+    <string name="extraname_y">extra_y</string>
+
+    <string name="base_surface_default" translatable="false">http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer</string>
+    <string name="fc_location_url" translatable="false">https://services.arcgis.com/W6FrZiZ4flx7mLJe/arcgis/rest/services/ARTrackLocation/FeatureServer/0</string>
+    <string name="add_one_feature_json">
+        {
+          \"geometry\" : {
+            \"x\" : %1$s,
+            \"y\" : %2$s,
+            \"z\" : %3$s,
+            \"spatialReference\" : {\"wkid\" : 4326}
+          },
+          \"attributes\" : {
+            \"created\" : %4$s,
+            \"heading\" : %5$s,
+            \"pitch\" : %6$s,
+            \"roll\" : %7$s
+          }
+        }
+    </string>
+</resources>
