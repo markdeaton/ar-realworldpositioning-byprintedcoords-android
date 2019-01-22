@@ -46,6 +46,36 @@ public class ARCoreSource extends DeviceMotionDataSource {
     this.mSceneUpdateCallback = sceneUpdateCallback;
   }
 
+  private Scene.OnUpdateListener updateListener = new Scene.OnUpdateListener() {
+    @Override
+    public void onUpdate(FrameTime frameTime) {
+      Frame frame;
+      try {
+        frame = mArSession.update();
+        if (frame == null) return;
+        if (frame.getCamera().getTrackingState() != TrackingState.TRACKING) {
+          Log.d(TAG, "Not tracking frame");
+          return;
+        }
+
+        Pose pose = frame.getCamera().getPose();
+        float[] aryRot = pose.getRotationQuaternion();
+        Quaternion qRotRaw = new Quaternion(aryRot[0], aryRot[1], aryRot[2], aryRot[3]);
+        // Order of multiplier and multiplicand is very important here!
+        Quaternion qRot = Quaternion.multiply(ROTATION_COMPENSATION, qRotRaw);
+        setRelativePosition(pose.tx(), -pose.tz(), pose.ty(),
+                qRot.x, qRot.y, qRot.z, qRot.w, true
+        );
+
+        // Allow the caller to do something with the updated scene if it wants to
+        if (mSceneUpdateCallback != null)
+          mSceneUpdateCallback.onSceneUpdate(mArScene, mArSession, frame, frameTime);
+      } catch (CameraNotAvailableException e) {
+        mSceneUpdateCallback.onSceneError(e);
+      }
+    }
+  };
+
   @Override
   public void startAll() {
     if (mArSession != null) {
@@ -53,35 +83,11 @@ public class ARCoreSource extends DeviceMotionDataSource {
         // Compensate for user holding device upright, rather than flat on a horizontal surface.
         // Taken from Xamarin iOS ARKit motion data source code.
         mArSession.resume();
-        mArScene.setOnUpdateListener(new Scene.OnUpdateListener() {
-          @Override
-          public void onUpdate(FrameTime frameTime) {
-            Frame frame;
-            try {
-              frame = mArSession.update();
-              if (frame == null) return;
-              if (frame.getCamera().getTrackingState() != TrackingState.TRACKING) {
-                Log.d(TAG, "Not tracking frame");
-                return;
-              }
-
-              Pose pose = frame.getCamera().getPose();
-              float[] aryRot = pose.getRotationQuaternion();
-              Quaternion qRotRaw = new Quaternion(aryRot[0], aryRot[1], aryRot[2], aryRot[3]);
-              // Order of multiplier and multiplicand is very important here!
-              Quaternion qRot = Quaternion.multiply(ROTATION_COMPENSATION, qRotRaw);
-              setRelativePosition(pose.tx(), -pose.tz(), pose.ty(),
-                      qRot.x, qRot.y, qRot.z, qRot.w, true
-              );
-
-              // Allow the caller to do something with the updated scene if it wants to
-              if (mSceneUpdateCallback != null)
-                mSceneUpdateCallback.onSceneUpdate(mArScene, mArSession, frame, frameTime);
-            } catch (CameraNotAvailableException e) {
-              mSceneUpdateCallback.onSceneError(e);
-            }
-          }
-        });
+        try {
+          mArScene.removeOnUpdateListener(updateListener);
+        } finally {
+          mArScene.addOnUpdateListener(updateListener);
+        }
       } catch (CameraNotAvailableException e) {
         ARUtils.displayError(mArScene.getView().getContext(), "Could not get the camera on resuming AR Session", e);
       }

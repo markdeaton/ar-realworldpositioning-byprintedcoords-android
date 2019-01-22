@@ -37,6 +37,7 @@ import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.LinearUnit;
 import com.esri.arcgisruntime.geometry.LinearUnitId;
 import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.google.android.gms.common.annotation.KeepName;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.gospelware.compassviewlib.CompassView;
@@ -76,7 +77,7 @@ public final class OCRActivity extends AppCompatActivity
     Log.d(TAG, "onCreate");
 
     mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
+GraphicsOverlay go = new GraphicsOverlay();
     setContentView(R.layout.activity_ocr);
 
     // Camera view

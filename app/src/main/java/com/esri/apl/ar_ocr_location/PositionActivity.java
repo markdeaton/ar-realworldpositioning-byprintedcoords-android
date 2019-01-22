@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.esri.apl.ar_ocr_location.util.ARCoreSceneUpdateCallable;
 import com.esri.apl.ar_ocr_location.util.ARCoreSource;
 import com.esri.apl.ar_ocr_location.util.ARUtils;
+import com.esri.apl.ar_ocr_location.util.FcUpdateUtils;
 import com.esri.apl.ar_ocr_location.util.PermissionsUtil;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.geometry.Point;

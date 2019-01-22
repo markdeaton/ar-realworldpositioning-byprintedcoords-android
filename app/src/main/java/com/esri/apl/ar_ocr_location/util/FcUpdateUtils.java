@@ -3,7 +3,7 @@ package com.esri.apl.ar_ocr_location.util;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.esri.apl.ar_world_positioning.R;
+import com.esri.apl.ar_ocr_location.R;
 
 
 public class FcUpdateUtils {
